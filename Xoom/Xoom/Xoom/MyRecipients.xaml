@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Xoom.Models;assembly=Xoom"
+             x:Class="Xoom.MyRecipients" Title="My Recipients">
+    <ContentPage.Content>
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding Recipients}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame HasShadow="False" BorderColor="LightGray" CornerRadius="5" Margin="10,10, 10, 0">
+                                <StackLayout>
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Label 
+                                            FontSize="Medium" 
+                                            Text="{Binding FullName}" 
+                                            Grid.Column="0"  
+                                            VerticalOptions="Center" VerticalTextAlignment="Center" />
+                                        <Image 
+                                            Source="ecuador.png" 
+                                            HeightRequest="25" 
+                                            WidthRequest="25" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="End" 
+                                            Grid.Column="1"/>
+                                    </Grid>
+                                    <StackLayout Orientation="Horizontal" Padding="0" Margin="0" Spacing="0">
+                                        <Label FontSize="Small" Text="Last money transfer - " />
+                                        <Label FontSize="Small" TextColor="DarkGreen">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    TargetType="Label" Binding="{Binding Transfer}"
+                                                    Value="{x:Static models:TransferFlag.Track}">
+                                                    <Setter Property="Text" Value="On Track" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    TargetType="Label" Binding="{Binding Transfer}"
+                                                    Value="{x:Static models:TransferFlag.Completed}">
+                                                    <Setter Property="Text" Value="Completed" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </StackLayout>
+                                    <Label FontSize="Small">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Updated " />
+                                                <Span Text="{Binding LastUpdate}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame HasShadow="False" BorderColor="Transparent">
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                <Image Source="transfer.png" HeightRequest="40" WidthRequest="40" />
+                                                <Label FontSize="Small" Text="Send Money"
+                                                       VerticalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame HasShadow="False" BorderColor="Transparent">
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                <Image Source="transfer.png" HeightRequest="40" WidthRequest="40" />
+                                                <Label FontSize="Small" Text="Reload"
+                                                       VerticalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <Frame>
+                        <Label FontSize="16" Text="Send to Someone New" TextColor="#154da4" />
+                    </Frame>
+                </CollectionView.Footer>
+            </CollectionView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
